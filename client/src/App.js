@@ -20,7 +20,6 @@ class App extends React.Component {
   removeTask(id, local) {
     const {tasks} = this.state;
 
-
     this.setState({ tasks: tasks.filter(task => task.id !== id)
      });
     if (local) {
@@ -30,7 +29,6 @@ class App extends React.Component {
 
   addTask(newTask) {
     this.setState({tasks: [...this.state.tasks, newTask]});
-    console.log(newTask);
   };
 
   updateName(newName) {
@@ -52,6 +50,9 @@ class App extends React.Component {
 
   render() {
     const {tasks, taskName} = this.state;
+
+    const taskNameValueChange = e => this.updateName(e.target.value);
+    const addHandler = e => this.submitForm(e);
 
     return (
       <div className="App">
@@ -78,8 +79,8 @@ class App extends React.Component {
           </ul>
 
           <form id="add-task-form">
-            <input className="text-input" autoComplete="off" type="text" placeholder="Type your description" id="task-name" value={taskName} onChange={e => this.updateName(e.target.value)} />
-            <button className="btn" type="submit" onClick={e => this.submitForm(e)}>Add</button>
+            <input className="text-input" autoComplete="off" type="text" placeholder="Type your description" id="task-name" value={taskName} onChange={taskNameValueChange} />
+            <button className="btn" type="submit" onClick={addHandler}>Add</button>
           </form>
 
         </section>
